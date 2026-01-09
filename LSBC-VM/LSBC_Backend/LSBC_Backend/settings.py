@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('Secret_Key')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "lsbc-backend.onrender.com",
+    "https://lsbc-backend-1.onrender.com",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
