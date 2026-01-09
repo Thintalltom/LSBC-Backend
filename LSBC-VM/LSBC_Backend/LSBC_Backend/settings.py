@@ -28,7 +28,11 @@ SECRET_KEY = os.getenv('Secret_Key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "lsbc-backend.onrender.com",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
