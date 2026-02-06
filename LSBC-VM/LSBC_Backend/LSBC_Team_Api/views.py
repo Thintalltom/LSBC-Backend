@@ -6,9 +6,10 @@ from drf_spectacular.utils import extend_schema
 from .serializers import ClubSerializer, PlayerSerializer, CoachSerializer
 from .services import (
     create_club, create_player, create_coach, get_clubs,
-    delete_club, update_player, delete_player, update_coach, delete_coach
+    delete_club, update_player, delete_player, update_coach, delete_coach, get_individual_club, getPlayer
 )
 # Create your views here.
+
 
 @extend_schema(
     request=ClubSerializer,
@@ -21,6 +22,7 @@ class ClubCreateView(APIView):
         club_id = create_club(serializer.validated_data)
         return Response({"club_id": club_id}, status=201)
 
+
 @extend_schema(
     responses={204: None, 404: dict},
 )
@@ -29,6 +31,7 @@ class ClubDeleteView(APIView):
         if delete_club(club_id):
             return Response(status=204)
         return Response({"error": "Club not found"}, status=404)
+
 
 @extend_schema(
     request=PlayerSerializer,
@@ -44,6 +47,7 @@ class PlayerCreateView(APIView):
         except ValueError as e:
             return Response({"error": str(e)}, status=400)
 
+
 @extend_schema(
     request=PlayerSerializer,
     responses={200: dict, 404: dict},
@@ -56,6 +60,7 @@ class PlayerUpdateView(APIView):
             return Response({"message": "Player updated successfully"}, status=200)
         return Response({"error": "Player not found"}, status=404)
 
+
 @extend_schema(
     responses={204: None, 404: dict},
 )
@@ -64,6 +69,7 @@ class PlayerDeleteView(APIView):
         if delete_player(player_id):
             return Response(status=204)
         return Response({"error": "Player not found"}, status=404)
+
 
 @extend_schema(
     request=CoachSerializer,
@@ -75,6 +81,7 @@ class CoachCreateView(APIView):
         serializer.is_valid(raise_exception=True)
         coach_id = create_coach(club_id, serializer.validated_data)
         return Response({"coach_id": coach_id}, status=201)
+
 
 @extend_schema(
     request=CoachSerializer,
@@ -88,6 +95,7 @@ class CoachUpdateView(APIView):
             return Response({"message": "Coach updated successfully"}, status=200)
         return Response({"error": "Coach not found"}, status=404)
 
+
 @extend_schema(
     responses={204: None, 404: dict},
 )
@@ -97,6 +105,7 @@ class CoachDeleteView(APIView):
             return Response(status=204)
         return Response({"error": "Coach not found"}, status=404)
 
+
 @extend_schema(
     responses={200: dict},
 )
@@ -104,3 +113,23 @@ class ClubListView(APIView):
     def get(self, request):
         clubs = get_clubs()
         return Response(clubs, status=200)
+
+
+@extend_schema(
+    responses={200: dict, 404: dict},)
+class GetIndividualClubView(APIView):
+    def get(self, request, club_id):
+        club = get_individual_club(club_id)
+        if club:
+            return Response(club, status=200)
+        return Response({"error": "Club not found"}, status=404)
+
+
+@extend_schema(
+    responses={200: dict, 404: dict},)
+class GetIndividualPlayerView(APIView):
+    def get(self, request, player_id):
+        player = getPlayer(player_id)
+        if player:
+            return Response(player, status=200)
+        return Response({"error": "Player not found"}, status=404)

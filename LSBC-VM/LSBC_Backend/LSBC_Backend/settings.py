@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "lsbc-backend-1.onrender.com",
+    '127.0.0.1'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -140,7 +141,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-
+APPEND_SLASH = False
 STATIC_URL = 'static/'
 MONGO_URI = os.getenv('URI')
 MONGO_DB_NAME = 'LSBC_DB'
