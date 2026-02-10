@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('Secret_Key')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "lsbc-backend-1.onrender.com",
+    "https://lsbc-backend-1.onrender.com",
     '127.0.0.1'
 ]
 
